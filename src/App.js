@@ -1,8 +1,8 @@
 import React from "react";
-import { StyledModulesTest } from "./StyledModulesTest";
+import { StyledTest } from "./StyledTest";
 
 function App() {
-  return <StyledModulesTest />;
+  return <StyledTest />;
 }
 
 export default App;

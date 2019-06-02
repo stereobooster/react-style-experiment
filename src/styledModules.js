@@ -1,68 +1,50 @@
 import React from "react";
 
-const checkIfFunction = x => !!(x && x.constructor && x.call && x.apply);
-const filterObject = (rest, shouldForwardProp) =>
-  Object.keys(rest)
-    .filter(shouldForwardProp)
-    .reduce((obj, key) => {
-      obj[key] = rest[key];
-      return obj;
-    }, {});
-
 // Like styled-components but for css-modules
-export const styledModules = (styles, { shouldForwardProp } = {}) => {
-  const get = (_, defaultAs, __) => (name, options = { shouldForwardProp }) => {
-    const isFunction = checkIfFunction(name);
-    let className;
-    if (isFunction) {
-      className = props => {
-        let dynamicName = name(props);
-        const isArray = Array.isArray(dynamicName);
-        if (isArray) {
-          dynamicName = dynamicName.filter(Boolean);
-        }
-        if (process.env.NODE_ENV === "development") {
-          if (isArray) {
-            if (dynamicName.findIndex(x => styles[x] === undefined) !== -1) {
-              console.warn(`Class name is missing ${dynamicName}`);
-            }
-          } else if (styles[dynamicName] === undefined) {
-            console.warn(`Class name is missing ${dynamicName}`);
-          }
-        }
-        return isArray
-          ? dynamicName.map(x => styles[x]).join(" ")
-          : dynamicName[name];
-      };
-    } else {
-      const isArray = Array.isArray(name);
-      if (process.env.NODE_ENV === "development") {
-        if (isArray) {
-          if (name.findIndex(x => styles[x] === undefined) !== -1) {
-            console.warn(`Class name is missing ${name}`);
-          }
-        } else if (styles[name] === undefined) {
-          console.warn(`Class name is missing ${name}`);
-        }
-      }
-      className = isArray ? name.map(x => styles[x]).join(" ") : styles[name];
+export const styledModules = styles => {
+  const get = (_, defaultAs, __) => defaultClass => {
+    if (
+      process.env.NODE_ENV === "development" &&
+      styles[defaultClass] === undefined
+    ) {
+      console.warn(`Class name is missing ${defaultClass}`);
     }
 
-    const component = React.forwardRef(
-      ({ children, as = defaultAs, ...rest }, ref) =>
+    const proceedProps = (className, props, ref) => {
+      const classes = [styles[className]];
+      const rest = { ref, className };
+      Object.keys(props).forEach(key => {
+        if (styles[key]) {
+          if (props[key] === true) {
+            classes.push(styles[key]);
+          } else if (
+            process.env.NODE_ENV === "development" &&
+            props[key] !== false
+          ) {
+            console.warn(
+              `Modifier ${key} expect to be boolean value, but instead got ${
+                props[key]
+              }`
+            );
+          }
+        } else {
+          rest[key] = props[key];
+        }
+      });
+      rest.className = classes.join(" ");
+      return rest;
+    };
+
+    const component = React.memo(
+      React.forwardRef(({ children, as = defaultAs, ...props }, ref) =>
         React.createElement(
           as,
-          {
-            ...(options.shouldForwardProp
-              ? filterObject(rest, options.shouldForwardProp)
-              : rest),
-            className: isFunction ? className(rest) : className,
-            ref: ref
-          },
+          proceedProps(defaultClass, props, ref),
           children
         )
+      )
     );
-    component.displayName = `${defaultAs}💅`;
+    component.displayName = `${defaultClass}💅`;
     return component;
   };
 
