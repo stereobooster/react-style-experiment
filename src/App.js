@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react";
+import { StyledModulesTest } from "./StyledModulesTest";
 
 function App() {
-  return (
-    <div />
-  );
+  return <StyledModulesTest />;
 }
 
 export default App;
