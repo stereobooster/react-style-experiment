@@ -1,20 +1,39 @@
 import React from "react";
-import isPropValid from "@emotion/is-prop-valid";
-import { styledModules } from "./styledModules";
+import { styledModules } from "./styledModules2";
 import styles from "./StyledTest.module.css";
 import theme from "./theme.module.css";
 
-const styled = styledModules(styles, {
-  shouldForwardProp: isPropValid
-});
+// import isPropValid from "@emotion/is-prop-valid";
+// import classNames from "classnames";
+// const StyledButton = ({ primary, children, ...rest }) => (
+//   <button
+//     className={classNames([styles.btn, primary && styles.primary])}
+//     {...rest}
+//   >
+//     {children}
+//   </button>
+// );
 
-const Center = styled.div("center");
-// const Button = styled.button("btn");
-// const PrimaryButton = styled.button(["btn", "primary"]);
-const StyledButton = styled.button(props => [
-  "btn",
-  props.primary && "primary"
-]);
+// import classNamesBind from "classnames/bind";
+// let cx = classNamesBind.bind(styles);
+// const StyledButton = ({ primary, children, ...rest }) => (
+//   <button className={cx({ btn: true, primary })} {...rest}>
+//     {children}
+//   </button>
+// );
+
+// const styled = styledModules(styles, {
+//   shouldForwardProp: isPropValid
+// });
+// const Center = styled.div("center");
+// const StyledButton = styled.button(({ primary }) => [
+//   "btn",
+//   primary && "primary"
+// ]);
+
+const styled = styledModules(styles);
+const Center = styled.div("Center");
+const StyledButton = styled.button("Btn");
 
 // theming with the help of css variables
 const { div } = styledModules(theme);

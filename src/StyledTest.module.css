@@ -2,13 +2,13 @@
   --main-color: red;
 }
 
-.center {
+.Center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.btn {
+.Btn {
   border-radius: 3px;
   padding: 0.25em 1em;
   margin: 0 1em;
