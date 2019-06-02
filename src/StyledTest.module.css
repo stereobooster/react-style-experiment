@@ -1,3 +1,7 @@
+:root {
+  --main-color: red;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -9,11 +13,11 @@
   padding: 0.25em 1em;
   margin: 0 1em;
   background: transparent;
-  color: palevioletred;
-  border: 2px solid palevioletred;
+  color: var(--main-color);
+  border: 2px solid var(--main-color);
 }
 
 .primary {
-  background: palevioletred;
+  background: var(--main-color);
   color: white;
 }
