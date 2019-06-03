@@ -1,6 +1,7 @@
 import React from "react";
 
-// Like styled-components but for css-modules
+export const isFunction = x => !!(x && x.constructor && x.call && x.apply);
+
 export const styledModules = styles => {
   const get = (_, defaultAs, __) => defaultClass => {
     if (

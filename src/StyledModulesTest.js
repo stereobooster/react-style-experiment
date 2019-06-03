@@ -1,5 +1,5 @@
 import React from "react";
-import { styledModules } from "./styledModules";
+import { styledModules } from "./css-modules-components";
 import styles from "./StyledTest.module.css";
 import theme from "./theme.module.css";
 
