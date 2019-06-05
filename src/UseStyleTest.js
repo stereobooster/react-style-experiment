@@ -1,30 +1,33 @@
 import React from "react";
 import { singletoneStyled } from "./singletoneStyled";
 
-const styled = singletoneStyled(`
-:root {
-  --main-color: red;
-}
+// TODO: implement css`` babel-macro which will minify css
+const css = strings => strings[0];
 
-.Center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+const styled = singletoneStyled(css`
+  :root {
+    --main-color: red;
+  }
 
-.Btn {
-  border-radius: 3px;
-  padding: 0.25em 1em;
-  margin: 0 1em;
-  background: transparent;
-  color: var(--main-color);
-  border: 2px solid var(--main-color);
-}
+  .Center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.primary {
-  background: var(--main-color);
-  color: white;
-}
+  .Btn {
+    border-radius: 3px;
+    padding: 0.25em 1em;
+    margin: 0 1em;
+    background: transparent;
+    color: var(--main-color);
+    border: 2px solid var(--main-color);
+  }
+
+  .primary {
+    background: var(--main-color);
+    color: white;
+  }
 `);
 
 const Center = styled.div("Center");
