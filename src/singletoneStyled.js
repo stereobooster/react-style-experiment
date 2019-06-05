@@ -1,15 +1,14 @@
 import React from "react";
 
 import { getUseStyle } from "./useStyle";
-export const isFunction = x => !!(x && x.constructor && x.call && x.apply);
 
 export const singletoneStyled = styles => {
-  const useStyle = getUseStyle();
+  const useStyle = getUseStyle(styles);
 
   const get = (_, defaultAs, __) => defaultClass => {
     const component = React.memo(
       React.forwardRef(({ children, as = defaultAs, ...props }, ref) => {
-        useStyle(styles);
+        useStyle();
         return React.createElement(
           as,
           { ...props, className: defaultClass, ref },

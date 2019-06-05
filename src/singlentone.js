@@ -21,11 +21,11 @@ function insertStyleTag(tag) {
   head.appendChild(tag);
 }
 
-export const stylesheetSinglentone = () => {
+export const stylesheetSinglentone = (style) => {
   let counter = 0;
   let stylesheet = null;
   return {
-    add: style => {
+    add: () => {
       if (isWindow && counter === 0) {
         if ((stylesheet = makeStyleTag())) {
           injectStyles(stylesheet, style);
